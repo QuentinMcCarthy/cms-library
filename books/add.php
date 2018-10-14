@@ -70,35 +70,39 @@
 
 			$sql = "INSERT INTO `books`(`book_name`, `author`, `description`, `image_name`) VALUES ('$title','$author','$description','$filename')";
 
-			die($sql);
+			$result = mysqli_query($dbc, $sql);
 
-            $destination = "images/uploads";
+			if($result && mysqli_affected_rows($dbc) > 0){
+	            $destination = "../img/uploads";
 
-            if(!is_dir($destination)){
-                mkdir("img/uploads/", 0777, true);
-            }
+	            if(!is_dir($destination)){
+	                mkdir("../img/uploads/", 0777, true);
+	            }
 
-            // move_uploaded_file($fileTmp, $destination."/".$newFileName);
+	            // move_uploaded_file($fileTmp, $destination."/".$newFileName);
 
-            $manager = new ImageManager();
-            $mainImage = $manager->make($fileTmp);
-            $mainImage->save($destination."/".$newFileName, 100);
+	            $manager = new ImageManager();
+	            $mainImage = $manager->make($fileTmp);
+	            $mainImage->save($destination."/".$newFileName, 100);
 
-            $thumbnailImage = $manager->make($fileTmp);
-            $thumbDestination = "img/uploads/thumbs";
+	            $thumbnailImage = $manager->make($fileTmp);
+	            $thumbDestination = "../img/uploads/thumbs";
 
-            if(!is_dir($thumbDestination)){
-                mkdir("img/uploads/thumbs/", 0777, true);
-            }
+	            if(!is_dir($thumbDestination)){
+	                mkdir("../img/uploads/thumbs/", 0777, true);
+	            }
 
-            $thumbnailImage->resize(300, null, function($constraint){
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+	            $thumbnailImage->resize(300, null, function($constraint){
+	                $constraint->aspectRatio();
+	                $constraint->upsize();
+	            });
 
-            $thumbnailImage->save($thumbDestination."/".$newFileName, 100);
+	            $thumbnailImage->save($thumbDestination."/".$newFileName, 100);
 
-            header("Location: book.php");
+	            header("Location: book.php");
+			} else {
+				die("Database alteration failed");
+			}
         }
     }
 ?>
