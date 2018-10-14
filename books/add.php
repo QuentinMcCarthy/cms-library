@@ -1,4 +1,6 @@
 <?php
+	require "../includes/head.php";
+
     // require 'vendor/autoload.php';
     // import the Intervention Image Manager Class
     use Intervention\Image\ImageManager;
@@ -66,7 +68,7 @@
             $newFileName = uniqid().".".$fileExt;
 			$filename = mysqli_real_escape_string($dbc, $newFileName);
 
-			$sql = "INSERT INTO `books`(`book_name`, `author`, `description`, `image_name`) VALUES (`$title`,`$author`,`$description`,`$filename`)";
+			$sql = "INSERT INTO `books`(`book_name`, `author`, `description`, `image_name`) VALUES ('$title','$author','$description','$filename')";
 
 			die($sql);
 
@@ -99,8 +101,6 @@
             header("Location: book.php");
         }
     }
-
-    require "../includes/head.php";
 ?>
 
 <div class="container">
