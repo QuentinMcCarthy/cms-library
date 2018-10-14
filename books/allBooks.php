@@ -1,4 +1,4 @@
-<?php require "../templates/header.php"; ?>
+<?php require "../includes/head.php"; ?>
 
 <div class="container">
 	<div class="row mb-2">
@@ -33,4 +33,4 @@
     </div>
 </div>
 
-<?php require "../templates/footer.php" ?>
+<?php require "../includes/footer.php" ?>

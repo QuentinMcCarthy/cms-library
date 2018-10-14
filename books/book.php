@@ -1,4 +1,4 @@
-<?php require "templates/header.php"; ?>
+<?php require "../includes/head.php"; ?>
 
 <div class="container">
 	<div class="row mb-2">
@@ -9,8 +9,8 @@
 
 	<div class="row mb-2">
 		<div class="col">
-			<a class="btn btn-outline-primary" href="update.php">Edit</a>
-			<a class="btn btn-outline-danger" href="confirm_delete.php">Delete</a>
+			<a class="btn btn-outline-primary" href="./books/update.php">Edit</a>
+			<a class="btn btn-outline-danger" href="./books/confirm_delete.php">Delete</a>
 		</div>
 	</div>
 
@@ -34,4 +34,4 @@
     </div>
 </div>
 
-<?php require "templates/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>

@@ -100,7 +100,7 @@
         }
     }
 
-    require "includes/header.php";
+    require "../includes/head.php";
 ?>
 
 <div class="container">
@@ -153,4 +153,4 @@
 	</div>
 </div>
 
-<?php require "templates/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>
