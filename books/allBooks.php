@@ -1,4 +1,16 @@
-<?php require "../includes/head.php"; ?>
+<?php
+	require "../includes/head.php";
+
+	$sql = "SELECT `id`, `book_name`, `image_name` FROM `books` WHERE 1";
+
+	$result = mysqli_query($dbc, $sql);
+
+	if($result){
+		$allBooks = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	} else {
+		die("ERROR: Database SELECT failed");
+	}
+?>
 
 <div class="container">
 	<div class="row mb-2">
@@ -14,66 +26,29 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<a href="./books/book.php" class="btn btn-sm btn-outline-info">View</a>
-							<a href="./booksupdate.php" class="btn btn-sm btn-outline-secondary">Edit</a>
+		<?php if($allBooks): ?>
+			<?php foreach($allBooks as $book): ?>
+				<div class="col-md-4">
+					<div class="card mb-4 shadow-sm">
+						<img class="card-img-top" src="./img/uploads/thumbs/<?= $book["image_name"]; ?>" alt="Book cover">
+						<div class="card-body">
+							<p class="card-text"><?= $book["book_name"]; ?></p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<a href="./books/book.php" class="btn btn-sm btn-outline-info">View</a>
+									<a href="./booksupdate.php" class="btn btn-sm btn-outline-secondary">Edit</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<div class="col-md-4">
+				<p>No books found</p>
 			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<a href="./books/book.php" class="btn btn-sm btn-outline-info">View</a>
-							<a href="./booksupdate.php" class="btn btn-sm btn-outline-secondary">Edit</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	   <div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<a href="./books/book.php" class="btn btn-sm btn-outline-info">View</a>
-							<a href="./booksupdate.php" class="btn btn-sm btn-outline-secondary">Edit</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card mb-4 shadow-sm">
-				<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<a href="./books/book.php" class="btn btn-sm btn-outline-info">View</a>
-							<a href="./booksupdate.php" class="btn btn-sm btn-outline-secondary">Edit</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-   </div>
+		<?php endif; ?>
+	</div>
 </div>
 
 <?php require "../includes/footer.php" ?>
