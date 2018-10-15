@@ -9,6 +9,8 @@
 
 	if($result && mysqli_affected_rows($dbc) > 0){
 		$book = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	} else if($result && mysqli_affected_rows($dbc) == 0){
+		die("Error 404");
 	} else {
 		die("ERROR: Database SELECT failed");
 	}
