@@ -1,7 +1,7 @@
 <?php
 	require "../includes/head.php";
 
-	$id = $_GET["id"];
+	$id = $_GET['id'];
 
 	$sql = "SELECT * FROM `books` WHERE id = $id";
 
@@ -19,7 +19,7 @@
 <div class="container">
 	<div class="row mb-2">
 		<div class="col">
-			<h1><?= $book["book_name"]; ?></h1>
+			<h1><?= $book['book_name']; ?></h1>
 		</div>
 	</div>
 
@@ -36,14 +36,14 @@
 		</div>
 
         <div class="col-xs-12 col-sm-8 align-self-center">
-            <h3><?= $book["book_name"]; ?></h3>
-            <h4><?= $book["author"]; ?></h4>
+            <h3><?= $book['book_name']; ?></h3>
+            <h4><?= $book['author']; ?></h4>
         </div>
     </div>
 
     <div class="row mb-2">
         <div class="col-12">
-            <p><?= $book["description"]; ?></p>
+            <p><?= $book['description']; ?></p>
         </div>
     </div>
 </div>

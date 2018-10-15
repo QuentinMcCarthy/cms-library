@@ -1,7 +1,7 @@
 <?php
 	require "../includes/head.php";
 
-	$id = $_GET["id"];
+	$id = $_GET['id'];
 
 	$sql = "SELECT * FROM `books` WHERE id = $id";
 
@@ -49,7 +49,7 @@
 <div class="container">
 	<div class="row mb-2">
 		<div class="col">
-			<h1>Are you sure you want to delete <em><?= $book["book_name"]; ?>?</em></h1>
+			<h1>Are you sure you want to delete <em><?= $book['book_name']; ?>?</em></h1>
 		</div>
 	</div>
 

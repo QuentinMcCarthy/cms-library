@@ -34,10 +34,10 @@
             array_push($errors, "The description needs to be less than 1000 characters");
         }
 
-        if(isset($_FILES["image"])){
-            $fileSize = $_FILES["image"]["size"];
-            $fileTmp = $_FILES["image"]["tmp_name"];
-            $fileType = $_FILES["image"]["type"];
+        if(isset($_FILES['image'])){
+            $fileSize = $_FILES['image']['size'];
+            $fileTmp = $_FILES['image']['tmp_name'];
+            $fileType = $_FILES['image']['type'];
 
             if($fileSize == 0){
                 array_push($errors, "You must include an Image");
@@ -50,7 +50,7 @@
 					"png"
 				);
 
-                $fileNameArray = explode(".", $_FILES["image"]["name"]);
+                $fileNameArray = explode(".", $_FILES['image']['name']);
 
                 $fileExt = strtolower(end($fileNameArray));
 

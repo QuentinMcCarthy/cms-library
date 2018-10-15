@@ -26,13 +26,13 @@
 			<div class="card flex-md-row mb-4 shadow-sm h-md-250">
                 <div class="card-body d-flex flex-column align-items-start">
                     <strong class="d-inline-block mb-2 text-primary">Books</strong>
-                    <h3 class="mb-0"><a class="text-dark" href="./books/book.php?id=<?= $latestBook['id']; ?>"><?= $latestBook["book_name"]; ?></a></h3>
+                    <h3 class="mb-0"><a class="text-dark" href="./books/book.php?id=<?= $latestBook['id']; ?>"><?= $latestBook['book_name']; ?></a></h3>
 
                     <div class="mb-1 text-muted">
-						<?= $latestBook["author"]; ?>
+						<?= $latestBook['author']; ?>
 					</div>
 
-                    <p class="card-text mb-auto"><?= $latestBook["description"]; ?></p>
+                    <p class="card-text mb-auto"><?= $latestBook['description']; ?></p>
                     <a href="./books/single.php">Continue reading</a>
                 </div>
 
