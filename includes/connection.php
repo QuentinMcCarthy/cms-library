@@ -6,6 +6,6 @@
 
 		$dbc->set_charset("utf8");
 	} else {
-		die("Database connection failed");
+		die("ERROR: Database connection failed");
 	}
 ?>

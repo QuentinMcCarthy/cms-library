@@ -101,7 +101,7 @@
 
 	            header("Location: book.php");
 			} else {
-				die("Database alteration failed");
+				die("ERROR: Database INSERT failed");
 			}
         }
     }
