@@ -36,7 +36,7 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 									<a href="./books/book.php" class="btn btn-sm btn-outline-info">View</a>
-									<a href="./booksupdate.php" class="btn btn-sm btn-outline-secondary">Edit</a>
+									<a href="./books/update.php" class="btn btn-sm btn-outline-secondary">Edit</a>
 								</div>
 							</div>
 						</div>
