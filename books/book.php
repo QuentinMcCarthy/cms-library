@@ -3,7 +3,7 @@
 
 	$id = $_GET["id"];
 
-	$sql  = "SELECT * FROM `books` WHERE id = $id";
+	$sql = "SELECT * FROM `books` WHERE id = $id";
 
 	$result = mysqli_query($dbc, $sql);
 
