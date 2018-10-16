@@ -36,7 +36,7 @@
                     <a href="./books/single.php">Continue reading</a>
                 </div>
 
-                <img class="card-img-right flex-auto d-none d-lg-block" src="./img/uploads/thumbs/<?= $latestBook['image_name']; ?>" alt="Card image cap">
+                <img class="card-img-right flex-auto d-none d-lg-block" src="./img/uploads/thumbs/small/<?= $latestBook['image_name']; ?>" alt="Card image cap">
             </div>
         </div>
 

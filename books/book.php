@@ -32,7 +32,7 @@
 
 	<div class="row mb-2">
 		<div class="col-xs-12 col-sm-4 align-self-center">
-			<img class="img-fluid" src="./img/uploads/thumbs/<?= $book['image_name']; ?>" alt="Book cover">
+			<img class="img-fluid" src="./img/uploads/thumbs/medium/<?= $book['image_name']; ?>" alt="Book cover">
 		</div>
 
         <div class="col-xs-12 col-sm-8 align-self-center">

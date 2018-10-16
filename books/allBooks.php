@@ -30,7 +30,7 @@
 			<?php foreach($allBooks as $book): ?>
 				<div class="col-md-4">
 					<div class="card mb-4 shadow-sm">
-						<img class="card-img-top" src="./img/uploads/thumbs/<?= $book['image_name']; ?>" alt="Book cover">
+						<img class="card-img-top" src="./img/uploads/thumbs/medium/<?= $book['image_name']; ?>" alt="Book cover">
 						<div class="card-body">
 							<p class="card-text"><?= $book['book_name']; ?></p>
 							<div class="d-flex justify-content-between align-items-center">
