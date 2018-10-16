@@ -25,12 +25,14 @@
 		</div>
 	</div>
 
-	<div class="row mb-2">
-		<div class="col">
-			<a class="btn btn-outline-primary" href="./books/update.php?id=<?= $id ?>">Edit</a>
-			<a class="btn btn-outline-danger" href="./books/confirm_delete.php?id=<?= $id ?>">Delete</a>
+	<?php if(!empty($_SESSION['username'])): ?>
+		<div class="row mb-2">
+			<div class="col">
+				<a class="btn btn-outline-primary" href="./books/update.php?id=<?= $id ?>">Edit</a>
+				<a class="btn btn-outline-danger" href="./books/confirm_delete.php?id=<?= $id ?>">Delete</a>
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 
 	<div class="row mb-2">
 		<div class="col-xs-12 col-sm-4 align-self-center">

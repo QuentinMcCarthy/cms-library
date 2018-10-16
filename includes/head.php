@@ -54,7 +54,7 @@
 	                        <a class="btn btn-sm btn-outline-light" href="./users/signup.php">Sign up</a>
 						<?php else: ?>
 							<a class="btn btn-sm btn-outline-light" href="./users/logout.php"><?= $_SESSION['username'].": Logout"; ?></a>
-						<?php endif ?>
+						<?php endif; ?>
                     </div>
                 </div>
             </div>

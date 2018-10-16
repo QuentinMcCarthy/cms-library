@@ -19,11 +19,13 @@
 		</div>
 	</div>
 
-	<div class="row mb-2">
-		<div class="col">
-			<a class="btn btn-outline-primary" href="./books/add.php">Add new Book</a>
+	<?php if(!empty($_SESSION['username'])): ?>
+		<div class="row mb-2">
+			<div class="col">
+				<a class="btn btn-outline-primary" href="./books/add.php">Add new Book</a>
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 
 	<div class="row">
 		<?php if($allBooks): ?>
@@ -36,7 +38,9 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 									<a href="./books/book.php?id=<?= $book['id']; ?>" class="btn btn-sm btn-outline-info">View</a>
-									<a href="./books/update.php?id=<?= $book['id']; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+									<?php if(!empty($_SESSION['username'])): ?>
+										<a href="./books/update.php?id=<?= $book['id']; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+									<?php endif; ?>
 								</div>
 							</div>
 						</div>
