@@ -15,7 +15,7 @@
 		$book = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 		$originalImage = $book['image_name'];
-	} else if($result && mysqli_affected_rows($dbc) == 0){
+	} elseif($result && mysqli_affected_rows($dbc) == 0){
 		// die("Error 404");
 
 		header("Location: ../errors/404.php");
@@ -30,25 +30,25 @@
 
         if(!$title){
             array_push($errors, "Title is required, please enter a value");
-        } else if(strlen($title) < 2){
+        } elseif(strlen($title) < 2){
             array_push($errors, "Please enter at least 2 characters for your Title");
-        } else if(strlen($title) > 100){
+        } elseif(strlen($title) > 100){
             array_push($errors, "The title can't be more than 100 characters");
         }
 
         if(!$author){
             array_push($errors, "An author is required, please enter a value");
-        } else if(strlen($author) < 2){
+        } elseif(strlen($author) < 2){
             array_push($errors, "Please enter at least 2 characters for the author");
-        } else if(strlen($author) > 100){
+        } elseif(strlen($author) > 100){
             array_push($errors, "The Author Name can't be more than 100 characters");
         }
 
         if(!$description){
             array_push($errors, "A description is required, please enter a value");
-        } else if(strlen($description) < 10){
+        } elseif(strlen($description) < 10){
             array_push($errors, "The description must be at least 10 characters long");
-        } else if(strlen($description) > 1000){
+        } elseif(strlen($description) > 1000){
             array_push($errors, "The description needs to be less than 1000 characters");
         }
 
