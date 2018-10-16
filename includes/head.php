@@ -47,7 +47,7 @@
                             <i class="fas fa-search mx-3"></i>
                         </a>
 
-                        <a class="btn btn-sm btn-outline-light" href="#">Sign up</a>
+                        <a class="btn btn-sm btn-outline-light" href="./users/signup.php">Sign up</a>
                     </div>
                 </div>
             </div>
