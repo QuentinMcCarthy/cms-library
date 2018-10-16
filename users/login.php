@@ -6,7 +6,29 @@
 	if($_POST){
 		extract($_POST);
 
+		$errors = array();
 
+		$sql = "SELECT * FROM `users` WHERE username = '$username'";
+
+		$result = mysqli_query($dbc, $sql);
+
+		if($result && mysqli_affected_rows($dbc) > 0){
+			$user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+			if(password_verify($password, $user['password'])){
+				$_SESSION["valid"]=true;
+				$_SESSION["timeout"]=time();
+				$_SESSION["username"]=$username;
+
+				header("Location: confirmlogin.php");
+			} else {
+				array_push($errors, "Incorrect password");
+			}
+		} else if($result && mysqli_affected_rows($dbc) == 0){
+			array_push($errors, "Incorrect username");
+		} else {
+			die("ERROR: Database SELECT failed");
+		}
 	}
 ?>
 

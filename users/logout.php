@@ -2,8 +2,6 @@
 	require "../includes/head.php";
 
 	if($_POST){
-		session_start();
-
 		unset($_SESSION["username"]);
 
 		header("Refresh:2; URL=./users/logout.php");
@@ -12,13 +10,13 @@
 
 <div class="container">
 	<?php if(empty($_SESSION['username'])): ?>
-		<?php header("Refresh:3; URL=./index.php"); ?>
+		<?php header("Refresh:3; URL=../index.php"); ?>
 
 		<div class="row mb-2">
 			<div class="col">
-				<h1>Succesffully logged out</h1>
+				<h1>Successfully logged out</h1>
 				<h2>If you are not redirected in 3s</h2>
-				<h2>Click <a href="login.php">here</a> to return</h2>
+				<h2>Click <a href="../login.php">here</a> to return</h2>
 			</div>
 		</div>
 	<?php else: ?>

@@ -46,9 +46,9 @@
 			$result = mysqli_query($dbc, $sql);
 
 			if($result && mysqli_affected_rows($dbc) > 0){
-				// $_SESSION["valid"]=true;
-				// $_SESSION["timeout"]=time();
-				// $_SESSION["username"]=$username;
+				$_SESSION["valid"]=true;
+				$_SESSION["timeout"]=time();
+				$_SESSION["username"]=$username;
 
 				header("Location: confirmsignup.php");
 			} else {
