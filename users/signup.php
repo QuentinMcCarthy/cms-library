@@ -1,9 +1,6 @@
 <?php
 	require "../includes/head.php";
 
-	// $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-	// password_verify(FROM_INPUT_FIELD, HASHED_FROM_DATABASE);
-
 	if($_POST){
 		extract($_POST);
 
@@ -54,6 +51,8 @@
 				// $_SESSION["username"]=$username;
 
 				header("Location: confirmsignup.php");
+			} else {
+				die("ERROR: Database INSERT failed");
 			}
 		}
 	}

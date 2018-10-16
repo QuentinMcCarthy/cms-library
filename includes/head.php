@@ -9,6 +9,8 @@
 	$baseURL = getenv("PROJECT_URL");
 
 	require "connection.php";
+
+	session_start();
 ?>
 
 <!DOCTYPE html>
@@ -47,8 +49,12 @@
                             <i class="fas fa-search mx-3"></i>
                         </a>
 
-						<a class="btn btn-sm btn-outline-light" href="./user/signup.php">Login</a>
-                        <a class="btn btn-sm btn-outline-light" href="./users/signup.php">Sign up</a>
+						<?php if(empty($_SESSION['username'])): ?>
+							<a class="btn btn-sm btn-outline-light" href="./users/login.php">Login</a>
+	                        <a class="btn btn-sm btn-outline-light" href="./users/signup.php">Sign up</a>
+						<?php else: ?>
+							<a class="btn btn-sm btn-outline-light" href="./users/logout.php"><?= $_SESSION['username'].": Logout"; ?></a>
+						<?php endif ?>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,12 @@
 <?php
 	require "../includes/head.php";
 
+	// password_verify($password, $hashedPassword);
+
 	if($_POST){
 		extract($_POST);
+
+
 	}
 ?>
 
