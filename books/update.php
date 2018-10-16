@@ -46,77 +46,16 @@
             array_push($errors, "The description needs to be less than 1000 characters");
         }
 
-        if(isset($_FILES['image'])){
-            $fileSize = $_FILES['image']['size'];
-            $fileTmp = $_FILES['image']['tmp_name'];
-            $fileType = $_FILES['image']['type'];
-
-            if($fileSize == 0){
-				$filename = mysqli_real_escape_string($dbc, $book['image_name']);
-            } else if($fileSize > 5000000){
-                array_push($errors, "The file is to large, must be under 5MB");
-            } else {
-                $validExtensions = array(
-					"jpeg",
-					"jpg",
-					"png"
-				);
-
-                $fileNameArray = explode(".", $_FILES['image']['name']);
-
-                $fileExt = strtolower(end($fileNameArray));
-
-                if(in_array($fileExt, $validExtensions) === false){
-                    array_push($errors, "File type not allowed, can only be a jpg or png");
-                }
-            }
-        }
-
         if(empty($errors)){
 			$title = mysqli_real_escape_string($dbc, $title);
 			$author = mysqli_real_escape_string($dbc, $author);
 			$description = mysqli_real_escape_string($dbc, $description);
 
-			if(isset($fileExt)){
-	            $newFileName = uniqid().".".$fileExt;
-				$filename = mysqli_real_escape_string($dbc, $newFileName);
-			}
-
-			$sql = "UPDATE `books` SET `book_name`=$title,`author`=$author,`description`=$description,`image_name`=$filename WHERE id = $id";
-
-			die($sql);
+			die();
 
 			$result = mysqli_query($dbc, $sql);
 
 			if($result && mysqli_affected_rows($dbc) > 0){
-				if(isset($fileExt)){
-		            $destination = "../img/uploads";
-
-		            if(!is_dir($destination)){
-		                mkdir("../img/uploads/", 0777, true);
-		            }
-
-		            // move_uploaded_file($fileTmp, $destination."/".$newFileName);
-
-		            $manager = new ImageManager();
-		            $mainImage = $manager->make($fileTmp);
-		            $mainImage->save($destination."/".$newFileName, 100);
-
-		            $thumbnailImage = $manager->make($fileTmp);
-		            $thumbDestination = "../img/uploads/thumbs";
-
-		            if(!is_dir($thumbDestination)){
-		                mkdir("../img/uploads/thumbs/", 0777, true);
-		            }
-
-		            $thumbnailImage->resize(300, null, function($constraint){
-		                $constraint->aspectRatio();
-		                $constraint->upsize();
-		            });
-
-		            $thumbnailImage->save($thumbDestination."/".$newFileName, 100);
-				}
-
 	            header("Location: book.php?id=$id");
 			} else {
 				die("ERROR: Database UPDATE failed");
@@ -148,24 +87,24 @@
 
 	<div class="row mb-2">
 		<div class="col">
-			<form action="./books/update.php?id=<?= $id; ?>" method="post" enctype="multipart/form-data">
+			<form action="./books/update.php?id=<?= $book['id']; ?>" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="title">Book Title</label>
-					<input type="text" class="form-control" name="title" placeholder="Enter book title" value="<?= $book['book_name']; ?>">
+					<input type="text" class="form-control" name="title" placeholder="Enter book title" value="<?php if($_POST){ echo $_POST['title']; } else { echo $book['book_name']; } ?>">
 				</div>
 
 				<div class="form-group">
 					<label for="author">Author</label>
-					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?= $book['author']; ?>">
+					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?php if($_POST){ echo $_POST['author']; } else { echo $book['author']; } ?>">
 				</div>
 
 				<div class="form-group">
 					<label for="author">Book Description</label>
-					<textarea class="form-control" name="description" rows="8" cols="80" placeholder="Description about the book"><?= $book['description']; ?></textarea>
+					<textarea class="form-control" name="description" rows="8" cols="80" placeholder="Description about the book"><?php if($_POST){ echo $_POST['description']; } else { echo $book['description']; } ?></textarea>
 				</div>
 
 				<div class="form-group">
-					<img src="./img/uploads/thumbs/<?= $book['image_name']; ?>" alt="Card image cap">
+					<img src="./img/uploads/thumbs/small/<?= $book['image_name']; ?>" alt="Card image cap">
 					<label for="file">Upload an Image</label>
 					<input type="file" name="image" class="form-control-file">
 				</div>
