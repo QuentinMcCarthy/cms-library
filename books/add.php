@@ -73,33 +73,50 @@
 			$result = mysqli_query($dbc, $sql);
 
 			if($result && mysqli_affected_rows($dbc) > 0){
-				$lastID = $deb->insert_id;
+				$lastID = $dbc->insert_id;
 
 	            $destination = "../img/uploads";
 
 	            if(!is_dir($destination)){
-	                mkdir("../img/uploads/", 0777, true);
+	                mkdir($destination."/", 0777, true);
 	            }
-
-	            // move_uploaded_file($fileTmp, $destination."/".$newFileName);
 
 	            $manager = new ImageManager();
 	            $mainImage = $manager->make($fileTmp);
 	            $mainImage->save($destination."/".$newFileName, 100);
 
-	            $thumbnailImage = $manager->make($fileTmp);
-	            $thumbDestination = "../img/uploads/thumbs";
+
+				$thumbnailImage = $manager->make($fileTmp);
+
+	            $thumbDestination = "../img/uploads/thumbs/small";
 
 	            if(!is_dir($thumbDestination)){
-	                mkdir("../img/uploads/thumbs/", 0777, true);
+	                mkdir($thumbDestination."/", 0777, true);
 	            }
 
-	            $thumbnailImage->resize(300, null, function($constraint){
-	                $constraint->aspectRatio();
-	                $constraint->upsize();
-	            });
+                $thumbnailImage->resize(null, 250, function($constraint){
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
 
-	            $thumbnailImage->save($thumbDestination."/".$newFileName, 100);
+                $thumbnailImage->save($thumbDestination."/".$newFileName, 100);
+
+                $mediumImage = $manager->make($fileTmp);
+
+                $mediumDestination = "../img/uploads/thumbs/medium";
+
+                if(!is_dir($mediumDestination)){
+                    mkdir($mediumDestination."/", 0777, true);
+                }
+
+                $mediumImage->resize(300, null, function($constraint){
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+
+                $mediumImage->save($mediumDestination."/".$newFileName, 100);
+
+	            // move_uploaded_file($fileTmp, $destination."/".$newFileName);
 
 	            header("Location: book.php?id=$lastID");
 			} else {
