@@ -28,15 +28,7 @@
 			$result = mysqli_query($dbc, $sql);
 
 			if($result && mysqli_affected_rows($dbc) > 0){
-				$sql = "ALTER TABLE `books` AUTO_INCREMENT = $latest";
-
-				$result = mysqli_query($dbc, $sql);
-
-				if($result){
-					header("Location: ../index.php");
-				} else {
-					die("ERROR: Database ALTER failed");
-				}
+				header("Location: ../index.php");
 			} else{
 				die("ERROR: Database DELETE failed");
 			}
