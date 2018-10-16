@@ -59,52 +59,58 @@
 	}
 ?>
 
-<div class="container">
-	<div class="row mb-2">
-		<div class="col">
-			<h1>Sign up</h1>
-		</div>
-	</div>
+<div class="container py-5">
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<div class="card rounded-0">
+				<div class="card-header">
+					<h3 class="mb-0">Register</h3>
+				</div>
 
-	<?php if($_POST && !empty($errors)): ?>
-		<div class="row mb-2">
-			<div class="col">
-				<div class="alert alert-danger" role="alert">
-					<ul>
-						<?php foreach($errors as $error): ?>
-							<li><?= $error; ?></li>
-						<?php endforeach; ?>
-					</ul>
+				<div class="card-body">
+					<?php if($_POST && !empty($errors)): ?>
+						<div class="row mb-2">
+							<div class="col">
+								<div class="alert alert-danger" role="alert">
+									<ul>
+										<?php foreach($errors as $error): ?>
+											<li><?= $error; ?></li>
+										<?php endforeach; ?>
+									</ul>
+								</div>
+							</div>
+						</div>
+					<?php endif; ?>
+
+					<form action="./users/signup.php" method="post">
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" name="email" placeholder="Email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; } ?>">
+						</div>
+
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" name="username" placeholder="Username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; } ?>">
+						</div>
+
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" name="password" placeholder="Password">
+						</div>
+
+						<div class="form-group">
+							<label for="confirmpass">Confirm Password</label>
+							<input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password">
+		                </div>
+
+						<button type="submit" class="btn btn-outline-info btn-block">Submit</button>
+					</form>
+				</div>
+
+				<div class="card-footer">
+					<a class="btn btn-link text-muted" href="./users/login.php">Already a member? Login in</a>
 				</div>
 			</div>
-		</div>
-	<?php endif; ?>
-
-	<div class="row mb-2">
-		<div class="col">
-			<form action="./users/signup.php" method="post">
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" class="form-control" name="email" placeholder="Email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; } ?>">
-				</div>
-
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" class="form-control" name="username" placeholder="Username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; } ?>">
-				</div>
-
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" class="form-control" name="password" placeholder="Password">
-				</div>
-
-				<div class="form-group">
-					<label for="confirmpass">Confirm Password</label>
-					<input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password">
-                </div>
-
-				<button type="submit" class="btn btn-outline-info btn-block">Submit</button>
-			</form>
 		</div>
 	</div>
 </div>
