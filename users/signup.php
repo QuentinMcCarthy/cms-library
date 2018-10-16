@@ -1,8 +1,62 @@
 <?php
 	require "../includes/head.php";
 
-	// $hashedPassword = password_hashg($password, PASSWORD_DEFAULT);
+	// $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 	// password_verify(FROM_INPUT_FIELD, HASHED_FROM_DATABASE);
+
+	if($_POST){
+		extract($_POST);
+
+		$errors = array();
+
+		if(!$email){
+			array_push($errors, "Please provide an email");
+		} elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+			array_push($errors, "Please enter a valid email address");
+		} elseif(strlen($email) > 254){
+			array_push($errors, "Email address is too long, cannot be longer than 254 characters");
+		}
+
+		if(!$username){
+			array_push($errors, "Please provide a username");
+		} elseif(strlen($username) < 6){
+			array_push($errors, "Username is too short, must be at least 6 characters");
+		} elseif(strlen($username) > 25){
+			array_push($errors, "Username cannot be longer than 25 characters");
+		}
+
+		if(!$password){
+			array_push($errors, "Please provide a password");
+		} elseif(strlen($password) < 6){
+			array_push($errors, "Password is too short, must be at least 6 characters");
+		} elseif(strlen($password) > 25){
+			array_push($errors, "Password cannot be longer than 25 characters");
+		}
+
+		if($confirmpass != $password){
+			array_push($errors, "Passwords do not match");
+		}
+
+		if(empty($errors)){
+			$email = mysqli_real_escape_string($dbc, $email);
+			$username = mysqli_real_escape_string($dbc, $username);
+			$password = mysqli_real_escape_string($dbc, $password);
+
+			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+			$sql = "INSERT INTO `users`(`email`, `username`, `password`) VALUES ('$email','$username','$hashedPassword')";
+
+			$result = mysqli_query($dbc, $sql);
+
+			if($result && mysqli_affected_rows($dbc) > 0){
+				// $_SESSION["valid"]=true;
+				// $_SESSION["timeout"]=time();
+				// $_SESSION["username"]=$username;
+
+				header("Location: confirmsignup.php");
+			}
+		}
+	}
 ?>
 
 <div class="container">
@@ -30,24 +84,24 @@
 		<div class="col">
 			<form action="./users/signup.php" method="post">
 				<div class="form-group">
-					<label for="name">Name</label>
-					<input type="text" class="form-control" name="title" placeholder="Enter book title" value="<?php if(isset($_POST['title'])){ echo $_POST['title']; } ?>">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email" placeholder="Email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; } ?>">
 				</div>
 
 				<div class="form-group">
-					<label for="author">Author</label>
-					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?php if(isset($_POST['author'])){ echo $_POST['author']; } ?>">
+					<label for="username">Username</label>
+					<input type="text" class="form-control" name="username" placeholder="Username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; } ?>">
 				</div>
 
 				<div class="form-group">
-					<label for="description">Book Description</label>
-					<textarea class="form-control" name="description" rows="8" cols="80" placeholder="Description about the book"><?php if(isset($_POST['description'])){ echo $_POST['description']; } ?></textarea>
+					<label for="password">Password</label>
+					<input type="password" class="form-control" name="password" placeholder="Password">
+				</div>
+
+				<div class="form-group">
+					<label for="confirmpass">Confirm Password</label>
+					<input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password">
                 </div>
-
-				<div class="form-group">
-					<label for="file">Upload an Image</label>
-					<input type="file" name="image" class="form-control-file">
-				</div>
 
 				<button type="submit" class="btn btn-outline-info btn-block">Submit</button>
 			</form>
