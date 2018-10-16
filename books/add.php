@@ -116,8 +116,6 @@
 
                 $mediumImage->save($mediumDestination."/".$newFileName, 100);
 
-	            // move_uploaded_file($fileTmp, $destination."/".$newFileName);
-
 	            header("Location: book.php?id=$lastID");
 			} else {
 				die("ERROR: Database INSERT failed");

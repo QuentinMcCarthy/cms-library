@@ -1,6 +1,10 @@
 <?php
 	require "../includes/head.php";
 
+    // require 'vendor/autoload.php';
+    // import the Intervention Image Manager Class
+    use Intervention\Image\ImageManager;
+
 	$id = $_GET['id'];
 
 	$sql = "SELECT * FROM `books` WHERE id = $id";
@@ -9,6 +13,8 @@
 
 	if($result && mysqli_affected_rows($dbc) > 0){
 		$book = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+		$originalImage = $book['image_name'];
 	} else if($result && mysqli_affected_rows($dbc) == 0){
 		// die("Error 404");
 
@@ -89,7 +95,54 @@
 			$result = mysqli_query($dbc, $sql);
 
 			if($result && mysqli_affected_rows($dbc) > 0){
-	            header("Location: book.php?id=$id");
+				if(file_exists($_FILES['image']['tmp_name'])){
+					unlink("../img/uploads/$originalImage");
+					unlink("../img/uploads/thumbs/small/$originalImage");
+					unlink("../img/uploads/thumbs/medium/$originalImage");
+
+					$destination = "../img/uploads";
+
+		            if(!is_dir($destination)){
+		                mkdir($destination."/", 0777, true);
+		            }
+
+		            $manager = new ImageManager();
+		            $mainImage = $manager->make($fileTmp);
+		            $mainImage->save($destination."/".$newFileName, 100);
+
+
+					$thumbnailImage = $manager->make($fileTmp);
+
+		            $thumbDestination = "../img/uploads/thumbs/small";
+
+		            if(!is_dir($thumbDestination)){
+		                mkdir($thumbDestination."/", 0777, true);
+		            }
+
+	                $thumbnailImage->resize(null, 250, function($constraint){
+	                    $constraint->aspectRatio();
+	                    $constraint->upsize();
+	                });
+
+	                $thumbnailImage->save($thumbDestination."/".$newFileName, 100);
+
+	                $mediumImage = $manager->make($fileTmp);
+
+	                $mediumDestination = "../img/uploads/thumbs/medium";
+
+	                if(!is_dir($mediumDestination)){
+	                    mkdir($mediumDestination."/", 0777, true);
+	                }
+
+	                $mediumImage->resize(300, null, function($constraint){
+	                    $constraint->aspectRatio();
+	                    $constraint->upsize();
+	                });
+
+	                $mediumImage->save($mediumDestination."/".$newFileName, 100);
+				}
+
+				header("Location: book.php?id=$id");
 			} else {
 				die("ERROR: Database UPDATE failed");
 			}
@@ -120,7 +173,7 @@
 
 	<div class="row mb-2">
 		<div class="col">
-			<form action="./books/update.php?id=<?= $book['id']; ?>" method="post" enctype="multipart/form-data">
+			<form action="./books/update.php?id=<?= $id; ?>" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="title">Book Title</label>
 					<input type="text" class="form-control" name="title" placeholder="Enter book title" value="<?php if($_POST){ echo $_POST['title']; } else { echo $book['book_name']; } ?>">
