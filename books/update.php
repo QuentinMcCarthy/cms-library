@@ -46,12 +46,45 @@
             array_push($errors, "The description needs to be less than 1000 characters");
         }
 
+		if(file_exists($_FILES['image']['tmp_name'])){
+            $fileSize = $_FILES['image']['size'];
+            $fileTmp = $_FILES['image']['tmp_name'];
+            $fileType = $_FILES['image']['type'];
+
+			if($fileSize > 5000000){
+                array_push($errors, "The file is to large, must be under 5MB");
+            } else {
+                $validExtensions = array(
+					"jpeg",
+					"jpg",
+					"png"
+				);
+
+                $fileNameArray = explode(".", $_FILES['image']['name']);
+
+                $fileExt = strtolower(end($fileNameArray));
+
+                if(in_array($fileExt, $validExtensions) === false){
+                    array_push($errors, "File type not allowed, can only be a jpg or png");
+                }
+            }
+		}
+
         if(empty($errors)){
 			$title = mysqli_real_escape_string($dbc, $title);
 			$author = mysqli_real_escape_string($dbc, $author);
 			$description = mysqli_real_escape_string($dbc, $description);
 
-			die();
+			$sql = "UPDATE `books` SET `book_name`='$title',`author`='$author',`description`='$description'";
+
+			if(file_exists($_FILES['image']['tmp_name'])){
+	            $newFileName = uniqid().".".$fileExt;
+				$filename = mysqli_real_escape_string($dbc, $newFileName);
+
+				$sql .= ", `image_name`='$filename'";
+			}
+
+			$sql .= " WHERE id = $id";
 
 			$result = mysqli_query($dbc, $sql);
 
