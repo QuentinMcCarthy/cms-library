@@ -14,9 +14,9 @@
 
 		<div class="row mb-2">
 			<div class="col">
-				<h1>Successfully logged out</h1>
-				<h2>If you are not redirected in 3s</h2>
-				<h2>Click <a href="../login.php">here</a> to return</h2>
+				<div class="alert alert-success" role="alert">
+					<h3><center>Successfully logged out</center></h3>
+				</div>
 			</div>
 		</div>
 	<?php else: ?>
