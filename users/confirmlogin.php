@@ -1,7 +1,7 @@
 <?php
 	require "../includes/head.php";
 
-	header("Refresh:3; URL=../index.php");
+	header("Refresh:2; URL=../index.php");
 ?>
 
 <div class="container">
