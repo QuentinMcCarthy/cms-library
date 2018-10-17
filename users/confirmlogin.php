@@ -1,4 +1,8 @@
-<?php require "../includes/head.php"; ?>
+<?php
+	require "../includes/head.php";
+
+	header("Refresh:3; URL=../index.php");
+?>
 
 <div class="container">
 	<div class="row mb-2">
