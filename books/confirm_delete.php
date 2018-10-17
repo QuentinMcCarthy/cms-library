@@ -9,6 +9,8 @@
 
 	if($result && mysqli_affected_rows($dbc) > 0){
 		$book = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+		$originalImage = $book['image_name'];
 	} else if($result && mysqli_affected_rows($dbc) == 0){
 		// die("Error 404");
 
@@ -18,11 +20,16 @@
 	}
 
 	if($_POST){
+
 		$sql = "DELETE FROM `books` WHERE id = $id";
 
 		$result = mysqli_query($dbc, $sql);
 
 		if($result && mysqli_affected_rows($dbc) > 0){
+			unlink("../img/uploads/$originalImage");
+			unlink("../img/uploads/thumbs/small/$originalImage");
+			unlink("../img/uploads/thumbs/medium/$originalImage");
+
 			header("Location: ../index.php");
 		} else{
 			die("ERROR: Database DELETE failed");
