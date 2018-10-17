@@ -18,24 +18,14 @@
 	}
 
 	if($_POST){
-		$sql = "SELECT * FROM `books` ORDER BY `id` DESC LIMIT 1";
+		$sql = "DELETE FROM `books` WHERE id = $id";
 
 		$result = mysqli_query($dbc, $sql);
 
-		if($result){
-			$latest = mysqli_fetch_array($result, MYSQLI_ASSOC); $latest = $latest['id'];
-
-			$sql = "DELETE FROM `books` WHERE id = $id";
-
-			$result = mysqli_query($dbc, $sql);
-
-			if($result && mysqli_affected_rows($dbc) > 0){
-				header("Location: ../index.php");
-			} else{
-				die("ERROR: Database DELETE failed");
-			}
-		} else {
-			die("ERROR: Database SELECT failed");
+		if($result && mysqli_affected_rows($dbc) > 0){
+			header("Location: ../index.php");
+		} else{
+			die("ERROR: Database DELETE failed");
 		}
 	}
 ?>
