@@ -33,7 +33,7 @@ $(document).ready(function(){
 			}
 		});
 	}).focusout(function(){
-		$("#autocompleteAuthors").hide(1000);
+		$("#autocompleteAuthors").hide(250);
 	});
 });
 
