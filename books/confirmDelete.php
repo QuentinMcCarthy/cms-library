@@ -47,7 +47,7 @@
 	<div class="row mb-2">
 		<div class="col">
 			<form class="d-inline-block" action="./books/confirm_delete.php?id=<?= $id; ?>" method="post">
-				<input class="d-none" type="text" name="delete" value="true">
+				<input type="hidden" name="delete" value="true">
 				<button type="submit" class="btn btn-outline-danger">Yes</button>
 			</form>
 			<a class="btn btn-outline-primary" href="./books/book.php?id=<?= $id; ?>">No</a>
