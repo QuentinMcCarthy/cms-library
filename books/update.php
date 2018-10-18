@@ -15,6 +15,18 @@
 		$book = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 		$originalImage = $book['image_name'];
+
+		$originalID = $book['author_id'];
+
+		$sql = "SELECT * FROM `authors` WHERE id = $originalID";
+
+		$result = mysqli_query($dbc, $sql);
+
+		if($result && mysqli_affected_rows($dbc) > 0){
+			$author = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		} else {
+			die("ERROR: Database SELECT failed");
+		}
 	} elseif($result && mysqli_affected_rows($dbc) == 0){
 		// die("Error 404");
 
@@ -81,7 +93,9 @@
 			$author = mysqli_real_escape_string($dbc, $author);
 			$description = mysqli_real_escape_string($dbc, $description);
 
-			$sql = "UPDATE `books` SET `book_name`='$title',`author`='$author',`description`='$description'";
+			$authorID = $_POST['authorID'];
+
+			$sql = "UPDATE `books` SET `book_name`='$title',`author_id`='$authorID',`description`='$description'";
 
 			if(file_exists($_FILES['image']['tmp_name'])){
 	            $newFileName = uniqid().".".$fileExt;
@@ -181,7 +195,11 @@
 
 				<div class="form-group">
 					<label for="author">Author</label>
-					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?php if($_POST){ echo $_POST['author']; } else { echo $book['author']; } ?>">
+					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?php if($_POST){ echo $_POST['author']; } else { echo $author['name']; } ?>" autocomplete="off">
+					<input type="hidden" name="authorID" value="">
+					<div id="autocompleteAuthors">
+
+					</div>
 				</div>
 
 				<div class="form-group">
