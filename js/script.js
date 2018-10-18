@@ -32,6 +32,8 @@ $(document).ready(function(){
 				console.log(err);
 			}
 		});
+	}).focusout(function(){
+		$("#autocompleteAuthors").hide(1000);
 	});
 });
 
