@@ -29,7 +29,7 @@
 		<div class="row mb-2">
 			<div class="col">
 				<a class="btn btn-outline-primary" href="./books/update.php?id=<?= $id ?>">Edit</a>
-				<a class="btn btn-outline-danger" href="./books/confirm_delete.php?id=<?= $id ?>">Delete</a>
+				<a class="btn btn-outline-danger" href="./books/confirmDelete.php?id=<?= $id ?>">Delete</a>
 			</div>
 		</div>
 	<?php endif; ?>

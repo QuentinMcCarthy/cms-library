@@ -20,7 +20,7 @@
 				$_SESSION["timeout"]=time();
 				$_SESSION["username"]=$username;
 
-				header("Location: confirmlogin.php");
+				header("Location: confirmLogin.php");
 			} else {
 				array_push($errors, "Incorrect password");
 			}

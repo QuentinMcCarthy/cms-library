@@ -50,7 +50,7 @@
 				$_SESSION["timeout"]=time();
 				$_SESSION["username"]=$username;
 
-				header("Location: confirmsignup.php");
+				header("Location: confirmSignup.php");
 			} else {
 				die("ERROR: Database INSERT failed");
 			}
