@@ -153,9 +153,13 @@
 					<input type="text" class="form-control" name="title" placeholder="Enter book title" value="<?php if(isset($_POST['title'])){ echo $_POST['title']; } ?>">
 				</div>
 
-				<div class="form-group">
+				<div class="form-group position-relative">
 					<label for="author">Author</label>
-					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?php if(isset($_POST['author'])){ echo $_POST['author']; } ?>">
+					<input type="text" class="form-control" name="author" placeholder="Enter books author" value="<?php if(isset($_POST['author'])){ echo $_POST['author']; } ?>" autocomplete="off">
+					<input type="hidden" name="authorID" value="">
+					<div id="autocompleteAuthors">
+
+					</div>
 				</div>
 
 				<div class="form-group">

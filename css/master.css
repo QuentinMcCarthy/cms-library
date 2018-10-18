@@ -1,3 +1,24 @@
+#autocompleteAuthors {
+	display: none;
+	height: auto;
+	width: 100%;
+	background-color: white;
+	border: 1px solid black;
+	position: absolute;
+	z-index: 100;
+}
+
+#autocompleteAuthors div {
+	padding: 7.5px;
+	cursor: pointer;
+	background-color: white;
+	border-bottom: 1px solid black;
+}
+
+#autocompleteAuthors div:hover {
+	background-color: lightgrey;
+}
+
 .blog-header {
     line-height: 1;
     border-bottom: 1px solid #e5e5e5;
