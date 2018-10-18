@@ -62,13 +62,14 @@
 
         if(empty($errors)){
 			$title = mysqli_real_escape_string($dbc, $title);
-			$author = mysqli_real_escape_string($dbc, $author);
 			$description = mysqli_real_escape_string($dbc, $description);
 
             $newFileName = uniqid().".".$fileExt;
 			$filename = mysqli_real_escape_string($dbc, $newFileName);
 
-			$sql = "INSERT INTO `books`(`book_name`, `author`, `description`, `image_name`) VALUES ('$title','$author','$description','$filename')";
+			$authorID = $_POST['authorID'];
+
+			$sql = "INSERT INTO `books`(`book_name`, `author_id`, `description`, `image_name`) VALUES ('$title',$authorID,'$description','$filename')";
 
 			$result = mysqli_query($dbc, $sql);
 
