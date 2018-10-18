@@ -1,24 +1,13 @@
 <?php
 	require "includes/head.php";
 
-	$sql = "SELECT * FROM `books` ORDER BY `id` DESC LIMIT 1";
+	// $sql = "SELECT * FROM `books` ORDER BY `id` DESC LIMIT 1";
+	$sql = "SELECT books.id AS bookID, book_name, description, image_name, name AS author FROM books INNER JOIN authors ON books.author_id = authors.id ORDER BY bookID DESC LIMIT 1";
 
 	$result = mysqli_query($dbc, $sql);
 
 	if($result){
 		$latestBook = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-		$originalID = $latestBook['author_id'];
-
-		$sql = "SELECT * FROM `authors` WHERE id = $originalID";
-
-		$result = mysqli_query($dbc, $sql);
-
-		if($result && mysqli_affected_rows($dbc) > 0){
-			$author = mysqli_fetch_array($result, MYSQLI_ASSOC);
-		} else {
-			die("ERROR: Database SELECT failed");
-		}
 	} else {
 		die("ERROR: Database SELECT failed");
 	}
@@ -41,7 +30,7 @@
                     <h3 class="mb-0"><a class="text-dark" href="./books/book.php?id=<?= $latestBook['id']; ?>"><?= $latestBook['book_name']; ?></a></h3>
 
                     <div class="mb-1 text-muted">
-						<?= $author['name']; ?>
+						<?= $latestBook['author']; ?>
 					</div>
 
                     <p class="card-text mb-auto"><?= $latestBook['description']; ?></p>

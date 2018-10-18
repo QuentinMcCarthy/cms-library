@@ -3,24 +3,13 @@
 
 	$id = $_GET['id'];
 
-	$sql = "SELECT * FROM `books` WHERE id = $id";
+	// $sql = "SELECT * FROM `books` WHERE id = $id";
+	$sql = "SELECT books.id AS bookID, book_name, description, image_name, authors.id AS authorID, name AS author FROM books INNER JOIN authors ON books.author_id = authors.id WHERE books.id = $id";
 
 	$result = mysqli_query($dbc, $sql);
 
 	if($result && mysqli_affected_rows($dbc) > 0){
 		$book = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-		$originalID = $book['author_id'];
-
-		$sql = "SELECT * FROM `authors` WHERE id = $originalID";
-
-		$result = mysqli_query($dbc, $sql);
-
-		if($result && mysqli_affected_rows($dbc) > 0){
-			$author = mysqli_fetch_array($result, MYSQLI_ASSOC);
-		} else {
-			die("ERROR: Database SELECT failed");
-		}
 	} else if($result && mysqli_affected_rows($dbc) == 0){
 		// die("Error 404");
 
@@ -53,7 +42,7 @@
 
         <div class="col-xs-12 col-sm-8 align-self-center">
             <h3><?= $book['book_name']; ?></h3>
-            <h4><?= $author['name']; ?></h4>
+            <h4><?= $book['author']; ?></h4>
         </div>
     </div>
 
